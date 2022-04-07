@@ -1,0 +1,33 @@
+{
+  "name": "@mtiller/modelica-parser",
+  "version": "0.1.0",
+  "description": "A Modelica parser",
+  "scripts": {
+    "build": "yarn generate && yarn build:wasm",
+    "parse": "yarn generate && tree-sitter parse",
+    "generate": "tree-sitter generate",
+    "test": "yarn generate && tree-sitter test",
+    "hl": "yarn generate && tree-sitter highlight examples/highlight.mo",
+    "hl:parse": "yarn generate && tree-sitter parse examples/highlight.mo",
+    "build:wasm": "tree-sitter build-wasm .",
+    "build:js": "tree-sitter build-wasm node_modules/tree-sitter-javascript"
+  },
+  "keywords": [
+    "Modelica"
+  ],
+  "tree-sitter": [
+    {
+      "scope": "modelica",
+      "file-types": [
+        "mo"
+      ]
+    }
+  ],
+  "author": "Michael M. Tiller",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.6",
+    "tree-sitter-javascript": "^0.19.0"
+  }
+}
