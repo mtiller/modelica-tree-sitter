@@ -17,6 +17,24 @@ tests by running:
 $ yarn test
 ```
 
+If you want to test the parser on a Modelica file, you can run:
+
+```
+$ yarn parse path/to/file.mo
+```
+
+I've even implemented a highlighting query. To test that on a Modelica file, just run:
+
+```
+$ yarn highlight path/to/file.mo
+```
+
+For example, to test this on the included file `examples/highlight.mod`, just run:
+
+```
+$ yarn highlight examples/highlight.mo
+```
+
 ### Current Status
 
 I tested this on a "Save Total" version of the Modelica Standard Library and it

@@ -7,8 +7,7 @@
     "parse": "yarn generate && tree-sitter parse",
     "generate": "tree-sitter generate",
     "test": "yarn generate && tree-sitter test",
-    "hl": "yarn generate && tree-sitter highlight examples/highlight.mo",
-    "hl:parse": "yarn generate && tree-sitter parse examples/highlight.mo",
+    "highlight": "yarn generate && tree-sitter highlight",
     "build:wasm": "tree-sitter build-wasm .",
     "build:js": "tree-sitter build-wasm node_modules/tree-sitter-javascript"
   },
