@@ -1,0 +1,292 @@
+==================
+Long Empty Class
+==================
+
+model Foo 
+end Foo;
+
+---
+
+(stored_definition
+  (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (IDENT))))
+
+==================
+Long Class with String Comment
+==================
+
+model Foo "Test"
+end Foo;
+
+---
+
+(stored_definition
+  (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (description_string
+            (STRING))
+          (IDENT))))
+
+==================
+Long Class with Import
+==================
+
+model Resistor
+  import SIunits = Modelica.SIunits;
+  parameter Modelica.SIunits.Resistance R;
+end Resistor;
+
+---
+
+(stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (import_clause
+            (IDENT)
+            (name
+              (IDENT)
+              (IDENT)))
+          (component_clause
+            (parameter)
+            (type_specifier
+              (name
+                (IDENT)
+                (IDENT)
+                (IDENT)))
+              (component_declaration
+                (declaration
+                  (IDENT))))
+          (IDENT))))
+
+==================
+Long Class with Declarations
+==================
+
+model Resistor
+  Modelica.Electrical.Analog.Interface.PositivePin p;
+  Modelica.Electrical.Analog.Interface.NegativePin n;
+  Modelica.SIunits.Voltage v "Voltage";
+  Modelica.SIunits.Current i "Current";
+end Resistor;
+
+---
+
+  (stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (component_clause
+            (type_specifier
+              (name
+                (IDENT)
+                (IDENT)
+                (IDENT)
+                (IDENT)
+                (IDENT)))
+              (component_declaration
+                (declaration
+                  (IDENT))))
+          (component_clause
+            (type_specifier
+              (name
+                (IDENT)
+                (IDENT)
+                (IDENT)
+                (IDENT)
+                (IDENT)))
+              (component_declaration
+                (declaration
+                  (IDENT))))
+          (component_clause
+            (type_specifier
+              (name
+                (IDENT)
+                (IDENT)
+                (IDENT)))
+              (component_declaration
+                (declaration
+                  (IDENT))
+                (description_string
+                  (STRING))))
+          (component_clause
+            (type_specifier
+              (name
+                (IDENT)
+                (IDENT)
+                (IDENT)))
+              (component_declaration
+                (declaration
+                  (IDENT))
+                (description_string
+                  (STRING))))
+          (IDENT))))
+
+==================
+Long Class with Equation
+==================
+
+model Resistor
+equation
+  v = 2.0;
+end Resistor;
+
+---
+
+    (stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (equation_section
+            (equality_equation
+              (primary_expression
+                (component_reference
+                  (IDENT)))
+              (primary_expression
+                  (UNSIGNED_NUMBER ))))
+            (IDENT))))
+
+==================
+Long Class with Equation Container Expression
+==================
+
+model Resistor
+equation
+  v = i * R "Ohm's Law";
+end Resistor;
+
+---
+
+  (stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (equation_section
+            (equality_equation
+              (primary_expression
+                (component_reference
+                  (IDENT)))
+              (binary_expression
+                (primary_expression
+                  (component_reference
+                    (IDENT)))
+                (primary_expression
+                  (component_reference
+                    (IDENT)))))
+            (description_string
+              (STRING)))
+          (IDENT))))
+
+==================
+Long Class with Function Call
+==================
+
+model Resistor
+equation
+  v = f(i);
+end Resistor;
+
+---
+
+ (stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (equation_section
+            (equality_equation
+              (primary_expression
+                (component_reference
+                  (IDENT)))
+              (primary_expression
+                (function_call
+                  (component_reference
+                    (IDENT))
+                  (function_call_args                        (primary_expression
+                          (component_reference
+                            (IDENT))))))))
+          (IDENT))))
+
+==================
+Long Class with Function Call with Expression Arguments
+==================
+
+model Resistor
+equation
+  v = f(i*R);
+end Resistor;
+
+---
+
+ (stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (equation_section
+            (equality_equation
+              (primary_expression
+                (component_reference
+                  (IDENT)))
+              (primary_expression
+                (function_call
+                  (component_reference
+                    (IDENT))
+                  (function_call_args
+                        (binary_expression
+                          (primary_expression
+                            (component_reference
+                              (IDENT)))
+                          (primary_expression
+                            (component_reference
+                              (IDENT)))))))))
+          (IDENT))))
+
+==================
+Long Class with Extends Clause
+==================
+
+model Resistor
+  extends Library.Component(final a= /* */ 5, redeclare model A=B);
+end Resistor;
+
+---
+
+  (stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (extends_clause
+            (extends)
+            (name
+              (IDENT)
+              (IDENT))
+            (class_modification
+              (argument
+                (element_modification
+                (final)
+                  (name
+                    (IDENT))
+                  (modification
+                    (comment)
+                    (primary_expression
+                      (UNSIGNED_NUMBER )))))
+                  (argument
+                    (element_redeclaration
+                      (redeclare)
+                      (short_class_definition
+                        (model)
+                        (IDENT)
+                        (name
+                          (IDENT)))))))
+              (IDENT))))

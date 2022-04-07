@@ -1,0 +1,26 @@
+==================
+Identifier
+==================
+
+within a091234;
+
+---
+
+(stored_definition
+  (within_clause
+    (name
+      (IDENT))))
+
+==================
+Name
+==================
+
+within foo.bar;
+
+---
+
+(stored_definition
+  (within_clause
+    (name
+      (IDENT)
+      (IDENT))))

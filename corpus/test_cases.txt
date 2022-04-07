@@ -1,0 +1,388 @@
+==================
+Issue1 from SPModelica.mo
+==================
+
+model Foo
+  Real x = {{5,5}};
+end Foo;
+
+---
+
+ (stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (component_clause
+            (type_specifier
+              (name
+                (IDENT)))
+            (component_declaration
+              (declaration
+                (IDENT)
+                (modification
+                  (primary_expression
+                    (matrix_constructor
+                      (primary_expression
+                        (matrix_constructor
+                          (primary_expression
+                            (UNSIGNED_NUMBER))
+                          (primary_expression
+                            (UNSIGNED_NUMBER ))))))))))
+              (IDENT))))
+
+==================
+Issue2 from SPModelica.mo
+==================
+
+block OnDelay
+algorithm
+  when initial() then
+    delaySignal := u;
+    t_next := time - 1;
+  elsewhen u then
+    delaySignal := true;
+    t_next := time + delayTime;
+  elsewhen not u then
+    delaySignal := false;
+    t_next := time - 1;
+  end when;
+end OnDelay;
+
+---
+
+    (stored_definition
+      (class_definition
+        (block)
+        (class_specifier
+          (IDENT)
+          (algorithm_section
+            (statement
+              (when_statement
+                (primary_expression
+                  (function_call
+                    (initial)
+                    (function_call_args)))
+                (statement
+                  (component_reference
+                    (IDENT))
+                  (primary_expression
+                    (component_reference
+                      (IDENT))))
+                (statement
+                  (component_reference
+                    (IDENT))
+                  (binary_expression
+                    (primary_expression
+                      (component_reference
+                        (IDENT)))
+                    (primary_expression
+                      (UNSIGNED_NUMBER ))))
+                  (elsewhen_statement
+                    (primary_expression
+                      (component_reference
+                        (IDENT)))
+                    (statement
+                      (component_reference
+                        (IDENT))
+                      (primary_expression
+                        (true)))
+                    (statement
+                      (component_reference
+                        (IDENT))
+                      (binary_expression
+                        (primary_expression
+                          (component_reference
+                            (IDENT)))
+                        (primary_expression
+                          (component_reference
+                            (IDENT))))))
+                  (elsewhen_statement
+                    (unary_expression
+                      (primary_expression
+                        (component_reference
+                          (IDENT))))
+                    (statement
+                      (component_reference
+                        (IDENT))
+                      (primary_expression
+                        (false)))
+                    (statement
+                      (component_reference
+                        (IDENT))
+                      (binary_expression
+                        (primary_expression
+                          (component_reference
+                            (IDENT)))
+                        (primary_expression
+                          (UNSIGNED_NUMBER ))))))))
+              (IDENT))))
+
+==================
+Issue3 from SPModelica.mo
+==================
+
+type Smoothness =
+  enumeration(
+    LinearSegments 
+      "Table points are linearly interpolated",
+    ContinuousDerivative
+      "Table points are interpolated such that the first derivative is continuous",
+    ConstantSegments
+      "Table points are not interpolated, but the value from the previous abscissa point is returned"
+      ) "Enumeration defining the smoothness of table interpolation";
+
+---
+
+(stored_definition
+      (class_definition
+        (type)
+        (class_specifier
+          (IDENT)
+          (enumeration)
+          (enumeration_literal
+            (IDENT)
+            (description_string
+              (STRING)))
+          (enumeration_literal
+            (IDENT)
+            (description_string
+              (STRING)))
+          (enumeration_literal
+            (IDENT)
+            (description_string
+              (STRING)))
+          (description_string
+            (STRING)))))
+
+==================
+Issue4 from SPModelica.mo
+==================
+
+block Sqrt
+equation
+  y = SPModelica.ComplexMath.'sqrt+\?'(u);
+end Sqrt;
+
+---
+
+(stored_definition
+      (class_definition
+        (block)
+        (class_specifier
+          (IDENT)
+          (equation_section
+            (equality_equation
+              (primary_expression
+                (component_reference
+                  (IDENT)))
+              (primary_expression
+                (function_call
+                  (component_reference
+                    (IDENT)
+                    (IDENT)
+                    (IDENT))
+                  (function_call_args
+                    (primary_expression
+                      (component_reference
+                        (IDENT))))))))
+          (IDENT))))
+
+==================
+Issue5 from SPModelica.mo
+==================
+
+partial model VoltageSource 
+  replaceable SignalSource signalSource;
+end VoltageSource;
+
+---
+
+    (stored_definition
+      (class_definition
+        (partial)
+        (model)
+        (class_specifier
+          (IDENT)
+          (replaceable)
+          (component_clause
+            (type_specifier
+              (name
+                (IDENT)))
+            (component_declaration
+              (declaration
+                (IDENT))))
+          (IDENT))))
+
+==================
+Issue6 from SPModelica.mo
+==================
+
+model StepVoltage "Step voltage source"
+  extends Interfaces.VoltageSource(
+    redeclare Step signalSource(height=V));
+end StepVoltage;
+
+---
+
+    (stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (description_string
+            (STRING))
+          (extends_clause
+            (extends)
+            (name
+              (IDENT)
+              (IDENT))
+            (class_modification
+              (argument
+                (element_redeclaration
+                  (redeclare)
+                  (component_clause1
+                    (type_specifier
+                      (name
+                        (IDENT)))
+                    (component_declaration1
+                      (declaration
+                        (IDENT)
+                        (modification
+                          (class_modification
+                            (argument
+                              (element_modification
+                                (name
+                                  (IDENT))
+                                (modification
+                                  (primary_expression
+                                    (component_reference
+                                      (IDENT)))))))))))))))
+          (IDENT))))
+
+==================
+Issue7 from SPModelica.mo
+==================
+
+model Foo
+replaceable function gravityAcceleration =
+           standardGravityAcceleration constrainedby
+          partialGravityAcceleration
+          "Function to compute the gravity acceleration, resolved in world frame"
+           annotation();
+end Foo;
+
+---
+
+    (stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (replaceable)
+          (class_definition
+            (function)
+            (class_specifier
+              (IDENT)
+              (name
+                (IDENT))))
+          (constraining_clause
+            (constrainedby)
+            (name
+              (IDENT)))
+          (description_string
+            (STRING))
+          (annotation
+            (class_modification))
+          (IDENT))))
+
+==================
+Issue8 from SPModelica.mo
+==================
+
+package NoFriction "No pipe wall friction, no static head"
+  redeclare function extends massFlowRate_dp "Return mass flow rate m_flow as function of pressure loss dp, i.e., m_flow = f(dp), due to wall friction"
+
+  algorithm
+    assert(false, "function massFlowRate_dp (option: from_dp=true)
+cannot be used for WallFriction.NoFriction. Use instead
+function pressureLoss_m_flow (option: from_dp=false)");
+    annotation (Documentation(info="<html></html>"));
+  end massFlowRate_dp;
+end NoFriction;
+
+---
+
+    (stored_definition
+      (class_definition
+        (package)
+        (class_specifier
+          (IDENT)
+          (description_string
+            (STRING))
+          (redeclare)
+          (class_definition
+            (function)
+            (class_specifier
+              (extends)
+              (IDENT)
+              (description_string
+                (STRING))
+              (algorithm_section
+                (statement
+                  (component_reference
+                    (IDENT))
+                  (function_call_args
+                    (primary_expression
+                      (false))
+                    (primary_expression
+                      (STRING)))))
+              (annotation
+                (class_modification
+                  (argument
+                    (element_modification
+                      (name
+                        (IDENT))
+                      (modification
+                        (class_modification
+                          (argument
+                            (element_modification
+                              (name
+                                (IDENT))
+                              (modification
+                                (primary_expression
+                                  (STRING)))))))))))
+              (IDENT)))
+          (IDENT))))
+
+==================
+Issue9 from SPModelica.mo
+==================
+
+model X 
+algorithm
+  x := b.'*'(a.'$');
+end X;
+
+---
+
+(stored_definition
+      (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (algorithm_section
+            (statement
+              (component_reference
+                (IDENT))
+              (primary_expression
+                (function_call
+                  (component_reference
+                    (IDENT)
+                    (IDENT))
+                  (function_call_args
+                    (primary_expression
+                      (component_reference
+                        (IDENT)
+                        (IDENT))))))))
+          (IDENT))))

@@ -1,1 +1,6 @@
 node_modules
+bindings
+binding.gyp
+Cargo.toml
+src
+*.wasm

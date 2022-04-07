@@ -1,0 +1,35 @@
+==================
+Short Empty Class
+==================
+
+model Foo = /* Comment */ Bar;
+
+---
+
+(stored_definition
+  (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (comment)
+          (name
+            (IDENT)))))
+            
+
+==================
+Short Class with String Comment
+==================
+
+model Foo = Bar "string comment";
+
+---
+
+(stored_definition
+  (class_definition
+        (model)
+        (class_specifier
+          (IDENT)
+          (name
+            (IDENT))
+          (description_string
+            (STRING)))))
