@@ -35,6 +35,65 @@ For example, to test this on the included file `examples/highlight.mod`, just ru
 $ yarn highlight examples/highlight.mo
 ```
 
+In order to make the highlighting work, you must follow the steps outlined [here](https://tree-sitter.github.io/tree-sitter/syntax-highlighting#per-user-configuration). Specifically, you need to create a configuration file that includes the `parser-directories` field such that th
+
+It should look something like this:
+
+```json
+{
+  "parser-directories": ["/path/to/tree-sitter-modelica"],
+  "theme": {
+    "tag": 18,
+    "type.builtin": {
+      "color": 23,
+      "bold": true
+    },
+    "module": 136,
+    "punctuation.delimiter": 239,
+    "constructor": 136,
+    "embedded": null,
+    "variable.builtin": {
+      "bold": true
+    },
+    "variable.parameter": {
+      "underline": true
+    },
+    "attribute": {
+      "color": 124,
+      "italic": true
+    },
+    "function.builtin": {
+      "color": 26,
+      "bold": true
+    },
+    "operator": {
+      "bold": true,
+      "color": 239
+    },
+    "property": 124,
+    "constant": 94,
+    "number": {
+      "color": 94,
+      "bold": true
+    },
+    "keyword": 56,
+    "punctuation.bracket": 239,
+    "function": 26,
+    "comment": {
+      "color": 245,
+      "italic": true
+    },
+    "string": 28,
+    "constant.builtin": {
+      "bold": true,
+      "color": 94
+    },
+    "string.special": 30,
+    "type": 23
+  }
+}
+```
+
 ### Current Status
 
 I tested this on a "Save Total" version of the Modelica Standard Library and it
