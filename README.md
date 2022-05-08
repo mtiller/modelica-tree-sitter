@@ -41,58 +41,18 @@ It should look something like this:
 
 ```json
 {
-  "parser-directories": ["/path/to/tree-sitter-modelica"],
+  "parser-directories": ["/path/to/dir/__containing__/tree-sitter-modelica"],
   "theme": {
-    "tag": 18,
-    "type.builtin": {
-      "color": 23,
-      "bold": true
-    },
-    "module": 136,
-    "punctuation.delimiter": 239,
-    "constructor": 136,
-    "embedded": null,
-    "variable.builtin": {
-      "bold": true
-    },
-    "variable.parameter": {
-      "underline": true
-    },
-    "attribute": {
-      "color": 124,
-      "italic": true
-    },
-    "function.builtin": {
-      "color": 26,
-      "bold": true
-    },
-    "operator": {
-      "bold": true,
-      "color": 239
-    },
-    "property": 124,
-    "constant": 94,
-    "number": {
-      "color": 94,
-      "bold": true
-    },
-    "keyword": 56,
-    "punctuation.bracket": 239,
-    "function": 26,
-    "comment": {
-      "color": 245,
-      "italic": true
-    },
-    "string": 28,
-    "constant.builtin": {
-      "bold": true,
-      "color": 94
-    },
-    "string.special": 30,
-    "type": 23
+      ...
   }
 }
 ```
+
+**NB**: `parser-directories` is an array that should contain directories that
+**contain** parsers. So, for example, if the `tree-sitter-modelica` repo is
+stored in `/home/me/source/tree-sitter-modelica`, the `parser-directories` list
+should contain `/home/me/source`, **not**
+`/home/me/source/tree-sitter-modelica`.
 
 ### Current Status
 
