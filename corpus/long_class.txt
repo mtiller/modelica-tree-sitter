@@ -49,6 +49,7 @@ end Resistor;
         (class_specifier
           (IDENT)
           (import_clause
+            (import)
             (IDENT)
             (name
               (IDENT)

@@ -31,6 +31,12 @@ const LINE_COMMENT = /\/\/[^\n\r]+?(?:\*\)|[\n\r])/;
 const WHITESPACE = /[\s\p{Zs}\uFEFF\u2060\u200B]/;
 
 const keywords = {
+  when: ($) => "when",
+  elsewhen: ($) => "elsewhen",
+  then: ($) => "then",
+  while: ($) => "while",
+  loop: ($) => "loop",
+  import: ($) => "import",
   extends: ($) => "extends",
   encapsulated: ($) => "encapsulated",
   partial: ($) => "partial",
@@ -265,12 +271,12 @@ module.exports = grammar({
 
     import_clause: ($) =>
       seq(
-        "import",
+        $.import,
         choice(
-          seq($.IDENT, "=", $.name),
-          seq($.name, ".*"),
-          seq($.name, ".{", $._import_list, "}"),
-          $.name
+          seq($.IDENT, "=", field("import", $.name)),
+          seq(field("import", $.name), ".*"),
+          seq(field("import", $.name), ".{", $._import_list, "}"),
+          field("import", $.name)
         ),
         comment($)
       ),
@@ -481,36 +487,36 @@ module.exports = grammar({
 
     while_statement: ($) =>
       seq(
-        "while",
+        $.while,
         $._expression,
-        "loop",
+        $.loop,
         repeat(seq($.statement, ";")),
         "end",
-        "while"
+        $.while
       ),
 
     when_equation: ($) =>
       seq(
-        "when",
+        $.when,
         $._expression,
-        "then",
+        $.then,
         repeat(seq($._equation, ";")),
         optional(
-          seq("elsewhen", $._expression, "then", repeat(seq($._equation, ";")))
+          seq($.elsewhen, $._expression, "then", repeat(seq($._equation, ";")))
         ),
         "end",
-        "when"
+        $.when
       ),
 
     when_statement: ($) =>
       seq(
-        "when",
+        $.when,
         $._expression,
-        "then",
+        $.then,
         repeat(seq($.statement, ";")),
         repeat($.elsewhen_statement),
         "end",
-        "when"
+        $.when
       ),
 
     elsewhen_statement: ($) =>

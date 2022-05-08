@@ -59,10 +59,12 @@ end OnDelay;
           (algorithm_section
             (statement
               (when_statement
+                (when)
                 (primary_expression
                   (function_call
                     (initial)
                     (function_call_args)))
+                (then)
                 (statement
                   (component_reference
                     (IDENT))
@@ -115,8 +117,9 @@ end OnDelay;
                           (component_reference
                             (IDENT)))
                         (primary_expression
-                          (UNSIGNED_NUMBER ))))))))
-              (IDENT))))
+                          (UNSIGNED_NUMBER )))))
+                        (when))))
+                (IDENT))))
 
 ==================
 Issue3 from SPModelica.mo
